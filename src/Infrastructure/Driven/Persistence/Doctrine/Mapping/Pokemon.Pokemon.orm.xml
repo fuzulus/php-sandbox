@@ -1,0 +1,17 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="App\Domain\Pokemon\Pokemon"
+            table="pokemons"
+    >
+        <id name="id" column="id" type="pokemonId"/>
+
+        <embedded name="name" class="App\Domain\Pokemon\VO\PokemonName" use-column-prefix="false"/>
+        <embedded name="type1" class="App\Domain\Pokemon\VO\PokemonType" column-prefix="first_"/>
+        <embedded name="type2" class="App\Domain\Pokemon\VO\PokemonType" column-prefix="second_"/>
+
+        <embedded name="createdAt" class="App\Domain\Common\VO\Clock" column-prefix="created_at_"/>
+        <embedded name="updatedAt" class="App\Domain\Common\VO\NullableClock" column-prefix="updated_at_"/>
+    </entity>
+</doctrine-mapping>

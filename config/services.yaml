@@ -1,0 +1,67 @@
+imports:
+    - { resource: repositories.yaml }
+
+parameters:
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    App\Infrastructure\Driving\Common\v1\Endpoint\:
+        resource: '../src/Infrastructure/Driving/Common/v1/Endpoint/*'
+        tags: ['controller.service_arguments']
+
+    App\Infrastructure\Driving\Common\v1\ApiResponder\:
+        resource: '../src/Infrastructure/Driving/Common/v1/ApiResponder/*'
+
+    # Buses
+    App\Infrastructure\Driven\Bus\:
+        resource: '../src/Infrastructure/Driven/Bus/*'
+
+    # Services
+    App\Infrastructure\Driven\Service\:
+        resource: '../src/Infrastructure/Driven/Service/*'
+
+    # Param converters
+    App\Infrastructure\Driven\ParamConverter\:
+        resource: '../src/Infrastructure/Driven/ParamConverter/*'
+
+    # Fixtures
+    App\Infrastructure\Driven\Persistence\Doctrine\Fixtures\:
+        resource: '../src/Infrastructure/Driven/Persistence/Doctrine/Fixtures/*'
+        tags: ['doctrine.fixture.orm']
+
+    # Error handler
+    App\Infrastructure\Driven\JsonApi\ErrorHandler: ~
+
+    # Exception subscribers
+    App\Infrastructure\Driven\EventSubscriber\ExceptionSubscriber:
+        tags: [ 'kernel.event_subscriber' ]
+
+    # Application services - Command, Query and Event handlers and Bus configuration
+    App\Application\CommandHandler\:
+        resource: '../src/Application/CommandHandler/*'
+        autoconfigure: false
+        tags:
+            - { name: messenger.message_handler, bus: command.bus }
+
+    App\Infrastructure\Driven\QueryHandler\:
+        resource: '../src/Infrastructure/Driven/QueryHandler/*'
+        autoconfigure: false
+        tags:
+            - { name: messenger.message_handler, bus: query.bus }
+
+    App\Application\Bus\CommandBus:
+        alias: App\Infrastructure\Driven\Bus\MessengerCommandBus
+
+    App\Application\Bus\QueryBus:
+        alias: App\Infrastructure\Driven\Bus\MessengerQueryBus
+
+    App\Application\Service\:
+        resource: '../src/Application/Service/*'
+
+    App\Application\Service\Clock\ClockGenerator: '@App\Infrastructure\Driven\Service\Clock\ClockGeneratorImplementation'

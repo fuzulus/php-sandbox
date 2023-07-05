@@ -1,0 +1,53 @@
+type: object
+nullable: false
+required:
+    - id
+    - type
+    - attributes
+properties:
+    id:
+        type: string
+        nullable: false
+        format: uuidV4
+        example: b9816337-eca2-4605-a6c7-80738864ac0e
+    type:
+        type: string
+        nullable: false
+        enum:
+            - pokedex-entries
+        default: pokedex-entries
+    attributes:
+        type: object
+        nullable: false
+        required:
+            - number
+            - pokemonName
+            - pokemonType1
+            - pokemonType2
+            - createdAt
+            - updatedAt
+        properties:
+            number:
+                type: string
+                nullable: false
+                example: '#0001'
+            pokemonName:
+                type: string
+                nullable: false
+                example: Bulbasaur
+            pokemonType1:
+                type: string
+                nullable: false
+                example: Grass
+            pokemonType2:
+                type: string
+                nullable: true
+                example: Poison
+            createdAt:
+                type: integer
+                nullable: false
+                example: 1668446820
+            updatedAt:
+                type: integer
+                nullable: true
+                example: null

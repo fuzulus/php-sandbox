@@ -1,0 +1,52 @@
+type: object
+nullable: false
+required:
+    - type
+    - attributes
+    - relationships
+properties:
+    type:
+        type: string
+        nullable: false
+        enum:
+            - pokedex-entries
+        default: pokedex-entries
+    attributes:
+        type: object
+        nullable: false
+        required:
+            - number
+        properties:
+            number:
+                type: string
+                nullable: false
+                example: '#0001'
+    relationships:
+        type: object
+        nullable: false
+        required:
+            - pokemon
+        properties:
+            pokemon:
+                type: object
+                nullable: false
+                required:
+                    - data
+                properties:
+                    data:
+                        type: object
+                        nullable: false
+                        required:
+                            - id
+                            - type
+                        properties:
+                            id:
+                                type: string
+                                nullable: false
+                                example: fd2defff-12a2-4b7f-bb18-ca9281414ff1
+                            type:
+                                type: string
+                                nullable: false
+                                enum:
+                                    - pokemons
+                                default: pokemons

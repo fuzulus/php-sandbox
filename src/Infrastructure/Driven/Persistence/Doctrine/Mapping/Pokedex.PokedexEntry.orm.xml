@@ -1,0 +1,21 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="App\Domain\Pokedex\PokedexEntry"
+            table="pokedex_entries"
+    >
+        <id name="id" column="id" type="pokedexEntryId"/>
+
+        <embedded name="number" class="App\Domain\Pokedex\VO\PokedexEntryNumber" use-column-prefix="false"/>
+        <one-to-one field="pokemon" target-entity="App\Domain\Pokemon\Pokemon">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+            <join-column name="pokemon_id" nullable="false"/>
+        </one-to-one>
+
+        <embedded name="createdAt" class="App\Domain\Common\VO\Clock" column-prefix="created_at_"/>
+        <embedded name="updatedAt" class="App\Domain\Common\VO\NullableClock" column-prefix="updated_at_"/>
+    </entity>
+</doctrine-mapping>

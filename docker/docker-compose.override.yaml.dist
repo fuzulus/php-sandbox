@@ -1,0 +1,24 @@
+version: '3.7'
+
+services:
+    php:
+        volumes:
+            - '..:/opt/app'
+            - '/opt/app/vendor'
+            - '/opt/app/var/cache'
+        build:
+            context: ../
+            dockerfile: docker/services/php/php.Dockerfile
+
+    nginx:
+        build:
+            context: ../
+            dockerfile: docker/services/nginx/nginx.Dockerfile
+        volumes:
+            - '..:/opt/app'
+        ports:
+            - "8129:80"
+
+    db:
+        ports:
+            - "3036:3306"

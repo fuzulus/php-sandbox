@@ -1,0 +1,4 @@
+controllers:
+    resource: ../src/Infrastructure/Driving/Common/v1/Endpoint
+    prefix: /api/v1/common
+    type: attribute

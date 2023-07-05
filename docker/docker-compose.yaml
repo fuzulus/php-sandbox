@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+    php:
+        build:
+            context: ../
+            dockerfile: docker/services/php/php.Dockerfile
+            args:
+                XDEBUG_ENABLED: 'false'
+        depends_on:
+            - db
+
+    nginx:
+        build:
+            context: ../
+            dockerfile: docker/services/nginx/nginx.Dockerfile
+        depends_on:
+            - php
+
+    db:
+        image: mariadb:10.9.5
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+            MYSQL_USER: ${MYSQL_USER}
+        volumes:
+            - ./services/db/:/docker-entrypoint-initdb.d/

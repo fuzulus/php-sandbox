@@ -1,0 +1,11 @@
+openapi: "3.0.0"
+info:
+    description: |
+        PHP Sandbox API documentation
+    version: "1.0.0"
+    title: PHP Sandbox API documentation
+paths:
+    /api/v1/common/pokedex-entries:
+        $ref: './Pokedex/PokedexEntries.yaml'
+    /api/v1/common/pokedex-entries/{id}:
+        $ref: './Pokedex/PokedexEntryById.yaml'

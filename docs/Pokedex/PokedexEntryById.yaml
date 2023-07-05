@@ -1,0 +1,100 @@
+get:
+    summary: 'Get Pokedex entry by entry number'
+    operationId: getPokedexEntryByEntryNumber
+    description: 'Get Pokedex entry by entry number'
+    parameters:
+        -   in: path
+            name: id
+            required: true
+            description: 'Pokedex entry id'
+            schema:
+                type: string
+                format: uuidV4
+                nullable: false
+                example: b92d13b4-bcfc-4e14-90a4-2cf5ff6aaa91
+        -   in: query
+            name: include
+            required: false
+            description: 'Allowed includes are: pokemon'
+            schema:
+                type: string
+                nullable: false
+                example: pokemon
+    tags:
+        - Pokedex
+        - Pokemon
+    responses:
+        200:
+            description: 'Successful response after getting JSON:API resource'
+            content:
+                application/vnd.api+json:
+                    schema:
+                        type: object
+                        required:
+                            - data
+                        properties:
+                            data:
+                                $ref: './Schemas/PokedexEntryReadModel.yaml'
+        default:
+            description: Error
+            content:
+                application/vnd.api+json:
+                    schema:
+                        type: object
+                        required:
+                            - data
+                        properties:
+                            data:
+                                type: array
+                                items:
+                                    $ref: '../Common/Schemas/Error.yaml'
+                            included:
+                                type: array
+                                nullable: true
+                                items:
+                                    anyOf:
+                                        -   $ref: '../Pokemon/Schemas/PokemonReadModel.yaml'
+patch:
+    summary: 'Update Pokedex entry'
+    operationId: updatePokedexEntry
+    description: 'Update Pokedex entry'
+    tags:
+        - Pokedex
+        - Pokemon
+    requestBody:
+        description: 'Pokedex entry update model'
+        required: true
+        content:
+            application/vnd.api+json:
+                schema:
+                    type: object
+                    required:
+                        - data
+                    properties:
+                        data:
+                            $ref: './Schemas/PokedexEntryUpdateModel.yaml'
+    responses:
+        200:
+            description: 'Successful response after updating JSON:API resource'
+            content:
+                application/vnd.api+json:
+                    schema:
+                        type: object
+                        required:
+                            - data
+                        properties:
+                            data:
+                                $ref: './Schemas/PokedexEntryReadModel.yaml'
+        default:
+            description: Error
+            content:
+                application/vnd.api+json:
+                    schema:
+                        type: object
+                        required:
+                            - data
+                        properties:
+                            data:
+                                type: array
+                                items:
+                                    $ref: '../Common/Schemas/Error.yaml'

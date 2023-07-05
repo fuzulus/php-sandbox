@@ -1,0 +1,81 @@
+get:
+    summary: 'Get Pokedex entries'
+    operationId: getPokedexEntries
+    description: 'Retrieve all Pokedex entries'
+    parameters:
+        -   in: query
+            name: filter[number]
+            required: false
+            description: 'Filter by entry number'
+            schema:
+                type: string
+                nullable: false
+                example: '#0001'
+    tags:
+        - Pokedex
+        - Pokemon
+    responses:
+        200:
+            description: 'Successful response after getting JSON:API resources'
+            content:
+                application/vnd.api+json:
+                    schema:
+                        type: object
+                        required:
+                            - data
+                        properties:
+                            meta:
+                                type: object
+                                properties:
+                                    total:
+                                        type: number
+                                        nullable: false
+                                        example: 1
+                            data:
+                                type: array
+                                items:
+                                    $ref: './Schemas/PokedexEntryListModel.yaml'
+post:
+    summary: 'Create Pokedex entry'
+    operationId: createPokedexEntry
+    description: 'Create Pokedex entry'
+    tags:
+        - Pokedex
+        - Pokemon
+    requestBody:
+        description: 'Pokedex entry create model'
+        required: true
+        content:
+            application/vnd.api+json:
+                schema:
+                    type: object
+                    required:
+                        - data
+                    properties:
+                        data:
+                            $ref: './Schemas/PokedexEntryCreateModel.yaml'
+    responses:
+        201:
+            description: 'Successful response after creating JSON:API resource'
+            content:
+                application/vnd.api+json:
+                    schema:
+                        type: object
+                        required:
+                            - data
+                        properties:
+                            data:
+                                $ref: './Schemas/PokedexEntryReadModel.yaml'
+        default:
+            description: Error
+            content:
+                application/vnd.api+json:
+                    schema:
+                        type: object
+                        required:
+                            - data
+                        properties:
+                            data:
+                                type: array
+                                items:
+                                    $ref: '../Common/Schemas/Error.yaml'

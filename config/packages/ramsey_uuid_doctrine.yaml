@@ -1,0 +1,6 @@
+doctrine:
+    dbal:
+        types:
+            uuid: 'Ramsey\Uuid\Doctrine\UuidType'
+            pokemonId: 'App\Infrastructure\Driven\Persistence\Doctrine\DatabaseIdentifier\PokemonIdType'
+            pokedexEntryId: 'App\Infrastructure\Driven\Persistence\Doctrine\DatabaseIdentifier\PokedexEntryIdType'

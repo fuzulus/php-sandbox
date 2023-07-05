@@ -1,0 +1,20 @@
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    App\Infrastructure\Driven\Persistence\Doctrine\Repository\:
+        resource: '../src/Infrastructure/Driven/Persistence/Doctrine/Repository/*'
+
+    App\Application\Repository\:
+        resource: '../src/Application/Repository/*'
+
+    App\Application\Repository\Pokedex\PokedexEntryReadRepository:
+        '@App\Infrastructure\Driven\Persistence\Doctrine\Repository\DoctrinePokedexEntryReadRepository'
+    App\Application\Repository\Pokedex\PokedexEntryWriteRepository:
+        '@App\Infrastructure\Driven\Persistence\Doctrine\Repository\DoctrinePokedexEntryWriteRepository'
+    App\Application\Repository\Pokemon\PokemonReadRepository:
+        '@App\Infrastructure\Driven\Persistence\Doctrine\Repository\DoctrinePokemonReadRepository'
+    App\Application\Repository\Pokemon\PokemonWriteRepository:
+        '@App\Infrastructure\Driven\Persistence\Doctrine\Repository\DoctrinePokemonWriteRepository'

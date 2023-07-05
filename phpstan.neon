@@ -1,0 +1,14 @@
+parameters:
+    inferPrivatePropertyTypeFromConstructor: true
+    level: max
+    paths:
+        - src
+        - tests
+    excludePaths:
+        - src/Infrastructure/Driven/Persistence/Doctrine/Fixtures
+        - src/Infrastructure/Driven/Persistence/Doctrine/Migrations
+        - tests/bootstrap.php
+    scanFiles:
+        - %rootDir%/../../../vendor/bin/.phpunit/phpunit/vendor/autoload.php
+    bootstrapFiles:
+        - vendor/bin/.phpunit/phpunit/vendor/autoload.php
