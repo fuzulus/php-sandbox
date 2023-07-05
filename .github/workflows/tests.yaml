@@ -1,0 +1,36 @@
+name: Tests
+on:
+    pull_request:
+jobs:
+    tests:
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@v3
+            -   name: Start docker-compose
+                run: |
+                    cd docker
+                    cp .env.dist .env
+                    docker-compose -f docker-compose.ci.tests.yaml up -d
+                    docker-compose -f docker-compose.ci.tests.yaml ps
+                    sleep 10
+            -   name: Composer install
+                run: |
+                    cd docker
+                    docker-compose -f docker-compose.ci.tests.yaml exec -T php composer install
+            -   name: Run unit tests
+                run: |
+                    cd docker
+                    docker-compose -f docker-compose.ci.tests.yaml exec -T php composer test:unit
+            -   name: Run integration tests
+                run: |
+                    cd docker
+                    docker-compose -f docker-compose.ci.tests.yaml exec -T php composer test:integration
+            -   name: Run functional tests
+                run: |
+                    cd docker
+                    docker-compose -f docker-compose.ci.tests.yaml exec -T php composer test:functional
+            -   name: Turn off docker-compose
+                if: always()
+                run: |
+                    cd docker
+                    docker-compose -f docker-compose.ci.tests.yaml down
