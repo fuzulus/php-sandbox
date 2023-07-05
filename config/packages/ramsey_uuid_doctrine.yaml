@@ -4,3 +4,4 @@ doctrine:
             uuid: 'Ramsey\Uuid\Doctrine\UuidType'
             pokemonId: 'App\Infrastructure\Driven\Persistence\Doctrine\DatabaseIdentifier\PokemonIdType'
             pokedexEntryId: 'App\Infrastructure\Driven\Persistence\Doctrine\DatabaseIdentifier\PokedexEntryIdType'
+            userId: 'App\Infrastructure\Driven\Persistence\Doctrine\DatabaseIdentifier\UserIdType'
