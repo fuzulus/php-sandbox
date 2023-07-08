@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional;
 
+use App\Application\Repository\Authentication\UserReadRepository;
+use App\Domain\Authentication\VO\Email;
+use App\Infrastructure\Driven\Authentication\SecurityUser;
+use App\Infrastructure\Driven\Persistence\Doctrine\Fixtures\UserFixture;
 use GuzzleHttp\Psr7\Request;
 use League\OpenAPIValidation\PSR7\ValidatorBuilder;
 use Nyholm\Psr7\Factory\Psr17Factory;
@@ -21,6 +25,8 @@ abstract class KernelEndpointTestCase extends WebTestCase implements EndpointTes
 
     protected static ValidatorBuilder $validatorBuilder;
 
+    protected static string $userEmail = UserFixture::EMAILS[0];
+
     public static function setUpBeforeClass(): void
     {
         static::bootKernel();
@@ -37,6 +43,18 @@ abstract class KernelEndpointTestCase extends WebTestCase implements EndpointTes
         if (null === static::$kernel) {
             static::bootKernel();
         }
+    }
+
+    protected function createRequest(
+        string $method,
+        string $path,
+        ?string $body = null
+    ): Request {
+        if (null !== self::$userEmail) {
+            $this->loginUser(self::$userEmail);
+        }
+
+        return new Request($method, $path, $this->requestHeaders(), $body);
     }
 
     public function validateEndpoint(
@@ -72,5 +90,13 @@ abstract class KernelEndpointTestCase extends WebTestCase implements EndpointTes
         );
 
         return self::$client->getResponse();
+    }
+
+    private function loginUser(string $email): void
+    {
+        $user = self::getContainer()->get(UserReadRepository::class)->findByEmail(new Email($email));
+        $securityUser = new SecurityUser($user);
+
+        self::$client->loginUser($securityUser, 'api');
     }
 }

@@ -34,7 +34,6 @@ final class UpdatePokedexEntryControllerTest extends KernelEndpointTestCase
                 '/api/v1/common/pokedex-entries/%s',
                 PokedexEntryFixture::IDS[1],
             ),
-            null,
             $body,
         );
 

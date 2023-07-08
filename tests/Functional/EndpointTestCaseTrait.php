@@ -19,17 +19,11 @@ use Psr\Http\Message\ResponseInterface;
 trait EndpointTestCaseTrait
 {
     /** @return array<string,string> */
-    public function requestHeaders(?string $token): array
+    public function requestHeaders(): array
     {
-        $headers = [
+        return [
             'Content-Type' => 'application/vnd.api+json',
         ];
-
-        if (null !== $token) {
-            $headers['Authorization'] = sprintf('Bearer %s', $token);
-        }
-
-        return $headers;
     }
 
     abstract protected function validatorBuilder(): ValidatorBuilder;
@@ -37,15 +31,6 @@ trait EndpointTestCaseTrait
     protected static function createValidatorBuilder(): ValidatorBuilder
     {
         return (new ValidatorBuilder())->fromYamlFile(__DIR__ . '/../../docs/open_api.yaml');
-    }
-
-    protected function createRequest(
-        string $method,
-        string $path,
-        ?string $accessToken = null,
-        ?string $body = null
-    ): Request {
-        return new Request($method, $path, $this->requestHeaders($accessToken), $body);
     }
 
     /** @param mixed[] $body */

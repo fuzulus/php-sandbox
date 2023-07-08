@@ -1,0 +1,23 @@
+type: object
+nullable: false
+required:
+    - id
+    - type
+    - attributes
+properties:
+    id:
+        type: string
+        nullable: false
+        format: uuidV4
+        example: b9816337-eca2-4605-a6c7-80738864ac0e
+    type:
+        type: string
+        nullable: false
+        enum:
+            - users
+        default: users
+    attributes:
+        email:
+            type: string
+            nullable: false
+            example: ash.ketchum@pokemon.com

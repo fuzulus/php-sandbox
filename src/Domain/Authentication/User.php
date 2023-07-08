@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Authentication;
 
+use App\Domain\Authentication\ViewModel\MeViewModel;
 use App\Domain\Authentication\VO\Email;
 use App\Domain\Authentication\VO\Password;
 use App\Domain\Common\CreateTimestampTrait;
@@ -40,5 +41,13 @@ class User
     public function password(): Password
     {
         return $this->password;
+    }
+
+    public function meViewModel(): MeViewModel
+    {
+        return new MeViewModel(
+            (string) $this->id,
+            (string) $this->email,
+        );
     }
 }

@@ -38,7 +38,6 @@ final class CreatePokedexEntryControllerTest extends KernelEndpointTestCase
         $request = $this->createRequest(
             Request::METHOD_POST,
             '/api/v1/common/pokedex-entries',
-            null,
             $body,
         );
 

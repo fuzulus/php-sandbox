@@ -32,4 +32,9 @@ final class SecurityUser implements UserInterface, PasswordAuthenticatedUserInte
     {
         return (string) $this->user->password();
     }
+
+    public function domainUser(): User
+    {
+        return $this->user;
+    }
 }

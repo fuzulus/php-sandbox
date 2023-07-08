@@ -9,3 +9,5 @@ paths:
         $ref: './Pokedex/PokedexEntries.yaml'
     /api/v1/common/pokedex-entries/{id}:
         $ref: './Pokedex/PokedexEntryById.yaml'
+    /api/v1/common/me:
+        $ref: './User/Me.yaml'
