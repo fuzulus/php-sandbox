@@ -128,6 +128,17 @@
         "qc": [
             "php -d memory_limit=-1 vendor/bin/phpstan analyse -n --ansi --no-progress",
             "./vendor/bin/psalm --memory-limit=-1"
+        ],
+        "reset-db": [
+            "php bin/console doctrine:database:drop --force",
+            "php bin/console doctrine:database:create",
+            "php bin/console doctrine:migrations:migrate --no-interaction",
+            "php bin/console doctrine:fixtures:load --no-interaction",
+            "sh scripts/create_oauth2_dev_client.sh"
+        ],
+        "oauth2:generate-keys": [
+            "openssl genrsa -out config/jwt/private.pem 2048",
+            "openssl rsa -in config/jwt/private.pem -pubout -out config/jwt/public.pem"
         ]
     },
     "conflict": {
