@@ -18,7 +18,7 @@ and this project uses date versioning (releases are tagged based on the date of 
 ## Changed
 
 - Improved Functional test error handling
-- Updated all Symfony packages to minimum version of 6.0
+- Updated all Symfony packages to minimum version of 6.3
 
 ## [2023-07-08]
 
