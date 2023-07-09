@@ -6,9 +6,9 @@
 
 This repository contains sandbox code for various PHP implementations (e.g. OAuth2, GraphQL, etc.).
 
-## Planned implementations
+## Implementations
 
-* [ ] OAuth2
+* [x] OAuth2
 * [ ] GraphQL
 * [ ] Mutation testing using [Infection](https://infection.github.io/)
 * [ ] Behavioral testing using [Behat](https://docs.behat.org/en/latest/)
