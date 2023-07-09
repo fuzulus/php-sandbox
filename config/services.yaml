@@ -14,6 +14,9 @@ services:
     App\Infrastructure\Driving\Common\v1\Endpoint\:
         resource: '../src/Infrastructure/Driving/Common/v1/Endpoint/*'
         tags: ['controller.service_arguments']
+    App\Infrastructure\Driving\Authentication\v1\Endpoint\:
+        resource: '../src/Infrastructure/Driving/Authentication/v1/Endpoint/*'
+        tags: [ 'controller.service_arguments' ]
 
     App\Infrastructure\Driving\Common\v1\ApiResponder\:
         resource: '../src/Infrastructure/Driving/Common/v1/ApiResponder/*'
@@ -41,6 +44,18 @@ services:
     # Exception subscribers
     App\Infrastructure\Driven\EventSubscriber\ExceptionSubscriber:
         tags: [ 'kernel.event_subscriber' ]
+
+    # Authentication
+    App\Infrastructure\Driven\Authentication\:
+        resource: '../src/Infrastructure/Driven/Authentication/*'
+
+    App\Infrastructure\Driven\Authentication\Listener\AuthorizationCodeListener:
+        tags:
+            - { name: kernel.event_listener, event: 'league.oauth2_server.event.authorization_request_resolve', method: onAuthorizationRequestResolve }
+
+    App\Infrastructure\Driven\Authentication\Listener\LogoutEventListener:
+        tags:
+            - { name: kernel.event_listener, event: 'Symfony\Component\Security\Http\Event\LogoutEvent', dispatcher: security.event_dispatcher.main }
 
     # Application services - Command, Query and Event handlers and Bus configuration
     App\Application\CommandHandler\:

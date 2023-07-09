@@ -1,0 +1,23 @@
+league_oauth2_server:
+    authorization_server:
+        private_key: '%env(resolve:OAUTH_PRIVATE_KEY)%'
+        encryption_key: '%env(resolve:OAUTH_ENCRYPTION_KEY)%'
+        encryption_key_type: plain
+        access_token_ttl: PT24H
+        refresh_token_ttl: P1M
+        auth_code_ttl: PT10M
+        enable_refresh_token_grant: true
+        enable_auth_code_grant: true
+    resource_server:
+        public_key: '%env(resolve:OAUTH_PUBLIC_KEY)%'
+    scopes:
+        available: ['email']
+        default: ['email']
+    persistence:
+        doctrine:
+            entity_manager: default
+
+when@test:
+    league_oauth2_server:
+        persistence:
+            in_memory: null

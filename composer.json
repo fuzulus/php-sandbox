@@ -18,6 +18,7 @@
         "doctrine/migrations": "^3.1",
         "doctrine/orm": "^2.10",
         "guzzlehttp/guzzle": "^7.3",
+        "league/oauth2-server-bundle": "^0.5.0",
         "myclabs/php-enum": "^1.8",
         "nelmio/cors-bundle": "^2.0",
         "nesbot/carbon": "^2.46",
@@ -26,12 +27,12 @@
         "symfony/console": "^6.0",
         "symfony/dotenv": "^6.0",
         "symfony/flex": "^1.12",
-        "symfony/framework-bundle": "^5.4",
+        "symfony/framework-bundle": "^6.0",
         "symfony/messenger": "^6.0",
         "symfony/monolog-bundle": "^3.6",
         "symfony/proxy-manager-bridge": "^6.0",
-        "symfony/runtime": "^5.4",
-        "symfony/security-bundle": "^5.4",
+        "symfony/runtime": "^6.0",
+        "symfony/security-bundle": "^6.0",
         "symfony/uid": "^6.0",
         "symfony/yaml": "^6.0",
         "undabot/json-api-core": "^2.1",
@@ -127,6 +128,17 @@
         "qc": [
             "php -d memory_limit=-1 vendor/bin/phpstan analyse -n --ansi --no-progress",
             "./vendor/bin/psalm --memory-limit=-1"
+        ],
+        "reset-db": [
+            "php bin/console doctrine:database:drop --force",
+            "php bin/console doctrine:database:create",
+            "php bin/console doctrine:migrations:migrate --no-interaction",
+            "php bin/console doctrine:fixtures:load --no-interaction",
+            "sh scripts/create_oauth2_dev_client.sh"
+        ],
+        "oauth2:generate-keys": [
+            "openssl genrsa -out config/jwt/private.pem 2048",
+            "openssl rsa -in config/jwt/private.pem -pubout -out config/jwt/public.pem"
         ]
     },
     "conflict": {

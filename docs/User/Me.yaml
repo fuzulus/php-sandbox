@@ -1,0 +1,31 @@
+get:
+    summary: 'Get me'
+    operationId: getMe
+    description: 'Get current authenticated user'
+    tags:
+        - User
+    responses:
+        200:
+            description: 'Successful response after getting JSON:API resource'
+            content:
+                application/vnd.api+json:
+                    schema:
+                        type: object
+                        required:
+                            - data
+                        properties:
+                            data:
+                                $ref: './Schemas/MeReadModel.yaml'
+        default:
+            description: Error
+            content:
+                application/vnd.api+json:
+                    schema:
+                        type: object
+                        required:
+                            - data
+                        properties:
+                            data:
+                                type: array
+                                items:
+                                    $ref: '../Common/Schemas/Error.yaml'

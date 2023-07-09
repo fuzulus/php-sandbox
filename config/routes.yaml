@@ -2,3 +2,6 @@ controllers:
     resource: ../src/Infrastructure/Driving/Common/v1/Endpoint
     prefix: /api/v1/common
     type: attribute
+authentication:
+    resource: ../src/Infrastructure/Driving/Authentication/v1/Endpoint
+    type: attribute
