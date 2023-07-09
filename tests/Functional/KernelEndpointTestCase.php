@@ -10,6 +10,7 @@ use App\Infrastructure\Driven\Authentication\SecurityUser;
 use App\Infrastructure\Driven\Persistence\Doctrine\Fixtures\UserFixture;
 use Assert\Assertion;
 use GuzzleHttp\Psr7\Request;
+use League\OpenAPIValidation\PSR7\Exception\ValidationFailed;
 use League\OpenAPIValidation\PSR7\OperationAddress;
 use League\OpenAPIValidation\PSR7\ValidatorBuilder;
 use Nyholm\Psr7\Factory\Psr17Factory;
@@ -130,7 +131,22 @@ abstract class KernelEndpointTestCase extends WebTestCase implements EndpointTes
         $responseValidator = $this->validatorBuilder()->getResponseValidator();
 
         $operation = new OperationAddress($path, mb_strtolower($request->getMethod()));
-        $responseValidator->validate($operation, $response);
+        try {
+            $responseValidator->validate($operation, $response);
+        } catch (ValidationFailed $e) {
+            static::fail(
+                sprintf(<<<MSG
+                    Validation failed for response:
+                    
+                    %s
+                    
+                    with message: %s
+                    MSG,
+                    (string) $response->getBody(),
+                    $e->getMessage(),
+                ),
+            );
+        }
     }
 
     private function loginUser(string $email): void
