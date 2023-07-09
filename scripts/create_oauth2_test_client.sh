@@ -1,5 +1,5 @@
 source .env.test
-php bin/console league:oauth2-server:create-client \
+APP_ENV="test" php bin/console league:oauth2-server:create-client \
  "$OAUTH2_CLIENT_NAME" \
  "$OAUTH2_CLIENT_IDENTIFIER" \
  "$OAUTH2_CLIENT_SECRET" \

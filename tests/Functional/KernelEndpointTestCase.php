@@ -131,17 +131,19 @@ abstract class KernelEndpointTestCase extends WebTestCase implements EndpointTes
         $responseValidator = $this->validatorBuilder()->getResponseValidator();
 
         $operation = new OperationAddress($path, mb_strtolower($request->getMethod()));
+
         try {
             $responseValidator->validate($operation, $response);
         } catch (ValidationFailed $e) {
             static::fail(
-                sprintf(<<<MSG
-                    Validation failed for response:
-                    
-                    %s
-                    
-                    with message: %s
-                    MSG,
+                sprintf(
+                    <<<'MSG'
+                        Validation failed for response:
+
+                        %s
+
+                        with message: %s
+                        MSG,
                     (string) $response->getBody(),
                     $e->getMessage(),
                 ),

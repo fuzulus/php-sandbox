@@ -1,5 +1,5 @@
 # PHP Sandbox
-<img alt="Release" src="https://img.shields.io/github/v/release/fuzulus/php-sandbox"> <img alt="PHP version" src="https://img.shields.io/badge/php-%5E8.1-blue"> <img alt="Symfony version" src="https://img.shields.io/badge/symfony-%5E6.0-violet">
+<img alt="Release" src="https://img.shields.io/github/v/release/fuzulus/php-sandbox"> <img alt="PHP version" src="https://img.shields.io/badge/php-%5E8.1-blue"> <img alt="Symfony version" src="https://img.shields.io/badge/symfony-%5E6.3-violet">
 <br>
 <img alt="Commit activity" src="https://img.shields.io/github/commit-activity/m/fuzulus/php-sandbox">
 <img alt="Last commit" src="https://img.shields.io/github/last-commit/fuzulus/php-sandbox">
