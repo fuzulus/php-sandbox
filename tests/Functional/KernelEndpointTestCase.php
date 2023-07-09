@@ -39,6 +39,13 @@ abstract class KernelEndpointTestCase extends WebTestCase implements EndpointTes
         self::$validatorBuilder = self::createValidatorBuilder();
     }
 
+    protected function setUp(): void
+    {
+        if (null === static::$kernel) {
+            static::bootKernel();
+        }
+    }
+
     public function validateEndpoint(
         Request $request,
         string $path,
@@ -58,13 +65,6 @@ abstract class KernelEndpointTestCase extends WebTestCase implements EndpointTes
     protected static function createValidatorBuilder(): ValidatorBuilder
     {
         return (new ValidatorBuilder())->fromYamlFile(__DIR__ . '/../../docs/open_api.yaml');
-    }
-
-    protected function setUp(): void
-    {
-        if (null === static::$kernel) {
-            static::bootKernel();
-        }
     }
 
     protected function createRequest(

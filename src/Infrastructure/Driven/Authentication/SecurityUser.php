@@ -8,7 +8,7 @@ use App\Domain\Authentication\User;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-final class SecurityUser implements UserInterface, PasswordAuthenticatedUserInterface
+final class SecurityUser implements PasswordAuthenticatedUserInterface, UserInterface
 {
     public function __construct(private readonly User $user)
     {

@@ -22,7 +22,7 @@ final class UserProvider implements UserProviderInterface
 
     public function supportsClass(string $class): bool
     {
-        return $class === SecurityUser::class;
+        return SecurityUser::class === $class;
     }
 
     public function loadUserByIdentifier(string $identifier): UserInterface

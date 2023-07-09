@@ -13,6 +13,11 @@ use App\Domain\Pokemon\VO\PokemonType;
 use App\Infrastructure\Driven\Persistence\Doctrine\Fixtures\PokemonFixture;
 use App\Tests\Unit\UnitTestCase;
 
+/**
+ * @coversDefaultClass \App\Domain\Pokemon\Pokemon
+ *
+ * @small
+ */
 final class PokemonTest extends UnitTestCase
 {
     public function testViewModelWillCreateValidObject(): void
