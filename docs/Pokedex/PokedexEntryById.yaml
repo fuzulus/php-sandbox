@@ -35,6 +35,12 @@ get:
                         properties:
                             data:
                                 $ref: './Schemas/PokedexEntryReadModel.yaml'
+                            included:
+                                type: array
+                                nullable: true
+                                items:
+                                    anyOf:
+                                        -   $ref: '../Pokemon/Schemas/PokemonReadModel.yaml'
         default:
             description: Error
             content:
@@ -48,12 +54,6 @@ get:
                                 type: array
                                 items:
                                     $ref: '../Common/Schemas/Error.yaml'
-                            included:
-                                type: array
-                                nullable: true
-                                items:
-                                    anyOf:
-                                        -   $ref: '../Pokemon/Schemas/PokemonReadModel.yaml'
 patch:
     summary: 'Update Pokedex entry'
     operationId: updatePokedexEntry
