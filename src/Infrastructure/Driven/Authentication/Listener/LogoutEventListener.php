@@ -21,9 +21,10 @@ final class LogoutEventListener
 
     public function onSymfonyComponentSecurityHttpEventLogoutEvent(LogoutEvent $event): void
     {
-        $redirectUri = $event->getRequest()->get('redirect_uri');
+        /** @var string $redirectUri */
+        $redirectUri = $event->getRequest()->get('redirect_uri', '');
 
-        if (null !== $redirectUri) {
+        if (false === empty($redirectUri)) {
             $event->setResponse(new RedirectResponse($redirectUri));
         } else {
             $event->setResponse(new RedirectResponse($this->urlGenerator->generate('app_login')));

@@ -32,11 +32,14 @@ final class LoginAuthenticator extends AbstractAuthenticator
 
     public function authenticate(Request $request): Passport
     {
-        $username = $request->request->get('_username');
-        $password = $request->request->get('_password');
-        $csrfToken = $request->request->get('csrf_token');
+        /** @var string $username */
+        $username = $request->request->get('_username', '');
+        /** @var string $password */
+        $password = $request->request->get('_password', '');
+        /** @var string $csrfToken */
+        $csrfToken = $request->request->get('csrf_token', '');
 
-        if (empty($username) || empty($password)) {
+        if (true === empty($username) || true === empty($password)) {
             throw new CustomUserMessageAuthenticationException('Invalid or missing credentials');
         }
 

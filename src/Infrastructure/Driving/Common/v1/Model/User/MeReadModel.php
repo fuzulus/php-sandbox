@@ -11,6 +11,8 @@ use Undabot\SymfonyJsonApi\Service\Resource\Validation\Constraint\ResourceType;
 
 /**
  * @ResourceType(type="users")
+ *
+ * @psalm-immutable
  */
 final class MeReadModel implements ApiModel
 {

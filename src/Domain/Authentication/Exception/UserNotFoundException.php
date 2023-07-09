@@ -15,6 +15,6 @@ final class UserNotFoundException extends \DomainException
 
     public static function byEmail(Email $email): self
     {
-        return new self(sprintf('User with e-mail %s not found', $email));
+        return new self(sprintf('User with e-mail %s not found', (string) $email));
     }
 }
