@@ -22,4 +22,10 @@ passthru(sprintf(
     __DIR__
 ));
 
+passthru('openssl genrsa -out config/jwt/private-test.pem 2048');
+
+passthru('openssl rsa -in config/jwt/private-test.pem -pubout -out config/jwt/public-test.pem');
+
+passthru('sh scripts/create_oauth2_test_client.sh');
+
 require __DIR__ . '/bootstrap.php';
